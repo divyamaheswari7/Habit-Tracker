@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Habit Tracker</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
     <nav class="navbar">
       <div class="logo">🧘‍♂️ Habit Tracker</div>
-      <button id="darkToggle">🌙</button>
     </nav>
   </header>
 
@@ -22,12 +20,9 @@
         <input type="text" id="habitInput" placeholder="Enter a new habit..." />
         <button id="addHabit">Add Habit</button>
       </div>
-      <div class="habits-list" id="habitsList"></div>
-    </div>
-
-    <div class="stats-card">
-      <h2>📊 Weekly Habit Stats</h2>
-      <canvas id="habitChart" width="400" height="200"></canvas>
+      <div class="habits-list" id="habitsList">
+        <!-- Habits appear here -->
+      </div>
     </div>
   </main>
 
