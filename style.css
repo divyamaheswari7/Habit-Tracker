@@ -1,27 +1,69 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f0f4f8;
+  background: #f4f7fb;
   color: #333;
+  line-height: 1.6;
+}
+
+.header {
+  text-align: center;
+  padding: 100px 20px;
+  background: white;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.header p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 12px 24px;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #2980b9;
+}
+
+.topbar {
+  background: #2c3e50;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .container {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
+  max-width: 700px;
+  margin: 30px auto;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
 .form {
@@ -33,21 +75,23 @@ h1 {
 input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #bbb;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 button {
-  padding: 10px 16px;
+  padding: 10px 18px;
   border: none;
-  background: #3498db;
+  background: #2ecc71;
   color: white;
   border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 button:hover {
-  background: #2980b9;
+  background: #27ae60;
 }
 
 .habits {
@@ -57,16 +101,22 @@ button:hover {
 }
 
 .habit {
-  padding: 15px;
   background: #f8f9fa;
-  border-radius: 6px;
+  padding: 15px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.habit:hover {
+  transform: scale(1.02);
 }
 
 .habit-name {
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .days {
@@ -75,27 +125,38 @@ button:hover {
 }
 
 .day {
-  width: 24px;
-  height: 24px;
-  background: #ddd;
+  width: 26px;
+  height: 26px;
+  background: #d3d3d3;
   text-align: center;
-  line-height: 24px;
+  line-height: 26px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
+  transition: all 0.3s ease;
 }
 
 .day.checked {
   background: #2ecc71;
   color: white;
+  font-weight: bold;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .form {
     flex-direction: column;
   }
 
-  button {
+  .form button {
     width: 100%;
+  }
+
+  .habit {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .days {
+    margin-top: 10px;
   }
 }
