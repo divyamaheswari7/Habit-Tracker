@@ -3,14 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Habit Tracker - Home</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Habit Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="header">
-    <h1>🧘 Habit Tracker</h1>
-    <p>Track your habits and build a better you.</p>
-    <a href="dashboard.html" class="btn">Go to Dashboard</a>
+  <header>
+    <nav class="navbar">
+      <div class="logo">🧘‍♂️ Habit Tracker</div>
+    </nav>
   </header>
+
+  <main class="container">
+    <div class="tracker-card">
+      <h2>Track Your Habits</h2>
+      <div class="habit-input">
+        <input type="text" id="habitInput" placeholder="Enter a new habit..." />
+        <button id="addHabit">Add Habit</button>
+      </div>
+      <div class="habits-list" id="habitsList">
+        <!-- Habits appear here -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Habit Tracker. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
