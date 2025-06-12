@@ -1,121 +1,70 @@
-const habitInput = document.getElementById("habitInput");
-const addHabitBtn = document.getElementById("addHabit");
-const habitsList = document.getElementById("habitsList");
-const toggleDark = document.getElementById("darkToggle");
-const chartCanvas = document.getElementById("habitChart");
+const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
-const days = ["M", "T", "W", "T", "F", "S", "S"];
-let habits = JSON.parse(localStorage.getItem("habits")) || [];
+const habitsList = document.getElementById('habitsList');
+const addHabitBtn = document.getElementById('addHabit');
+const habitInput = document.getElementById('habitInput');
 
-function saveHabits() {
-  localStorage.setItem("habits", JSON.stringify(habits));
-}
+let habits = JSON.parse(localStorage.getItem('habits')) || [];
 
 function renderHabits() {
-  habitsList.innerHTML = "";
-
+  habitsList.innerHTML = '';
   habits.forEach((habit, index) => {
-    const habitDiv = document.createElement("div");
-    habitDiv.className = "habit";
+    const habitDiv = document.createElement('div');
+    habitDiv.className = 'habit';
 
-    const infoDiv = document.createElement("div");
-    infoDiv.className = "habit-info";
+    const header = document.createElement('div');
+    header.className = 'habit-header';
+    header.innerText = habit.name;
 
-    const title = document.createElement("div");
-    title.className = "habit-header";
-    title.innerText = habit.name;
-
-    const daysContainer = document.createElement("div");
-    daysContainer.className = "days";
+    const daysContainer = document.createElement('div');
+    daysContainer.className = 'days';
 
     days.forEach((day, dayIndex) => {
-      const dayBox = document.createElement("div");
-      dayBox.className = "day";
-      dayBox.innerText = day;
-
-      if (habit.days.includes(dayIndex)) {
-        dayBox.classList.add("active");
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day';
+      dayDiv.innerText = day;
+      if (habit.completed.includes(dayIndex)) {
+        dayDiv.classList.add('active');
       }
 
-      dayBox.addEventListener("click", () => {
-        if (habit.days.includes(dayIndex)) {
-          habit.days = habit.days.filter(d => d !== dayIndex);
-        } else {
-          habit.days.push(dayIndex);
-        }
-        saveHabits();
-        renderHabits();
-        updateChart();
+      dayDiv.addEventListener('click', () => {
+        toggleDay(index, dayIndex);
       });
 
-      daysContainer.appendChild(dayBox);
+      daysContainer.appendChild(dayDiv);
     });
 
-    infoDiv.appendChild(title);
-    infoDiv.appendChild(daysContainer);
-    habitDiv.appendChild(infoDiv);
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "🗑️";
-    deleteBtn.className = "delete-btn";
-    deleteBtn.onclick = () => {
-      habits.splice(index, 1);
-      saveHabits();
-      renderHabits();
-      updateChart();
-    };
-
-    habitDiv.appendChild(deleteBtn);
+    habitDiv.appendChild(header);
+    habitDiv.appendChild(daysContainer);
     habitsList.appendChild(habitDiv);
   });
 }
 
-addHabitBtn.addEventListener("click", () => {
-  const name = habitInput.value.trim();
-  if (!name) return;
+function addHabit() {
+  const habitName = habitInput.value.trim();
+  if (habitName === '') return;
 
-  habits.push({ name, days: [] });
-  habitInput.value = "";
+  habits.push({ name: habitName, completed: [] });
+  habitInput.value = '';
   saveHabits();
   renderHabits();
-  updateChart();
-});
-
-toggleDark.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  toggleDark.innerText = document.body.classList.contains("dark") ? "☀️" : "🌙";
-});
-
-let chart;
-function updateChart() {
-  const dayCounts = [0, 0, 0, 0, 0, 0, 0];
-
-  habits.forEach(habit => {
-    habit.days.forEach(day => {
-      dayCounts[day]++;
-    });
-  });
-
-  if (chart) chart.destroy();
-
-  chart = new Chart(chartCanvas, {
-    type: 'bar',
-    data: {
-      labels: days,
-      datasets: [{
-        label: 'Habits Completed',
-        data: dayCounts,
-        backgroundColor: '#1f8ef1',
-        borderRadius: 6
-      }]
-    },
-    options: {
-      scales: {
-        y: { beginAtZero: true, ticks: { stepSize: 1 } }
-      }
-    }
-  });
 }
 
+function toggleDay(habitIndex, dayIndex) {
+  const habit = habits[habitIndex];
+  if (habit.completed.includes(dayIndex)) {
+    habit.completed = habit.completed.filter(d => d !== dayIndex);
+  } else {
+    habit.completed.push(dayIndex);
+  }
+  saveHabits();
+  renderHabits();
+}
+
+function saveHabits() {
+  localStorage.setItem('habits', JSON.stringify(habits));
+}
+
+addHabitBtn.addEventListener('click', addHabit);
+
 renderHabits();
-updateChart();
